@@ -1,1 +1,1 @@
-# GameDev Study Of 3D Html5
+# Game Dev Study Of 3D Html5
