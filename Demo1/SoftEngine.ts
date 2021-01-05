@@ -31,6 +31,7 @@ module SoftEngine {
             this.workingHeight = this.workingCanvas.height;
             this.workingContext = this.workingCanvas.getContext("2d")!;
         }
+
         clear() {
             this.workingContext.clearRect(0, 0, this.workingWidth, this.workingHeight);
             this.backbuffer = this.workingContext.getImageData(0, 0, this.workingWidth, this.workingHeight);
@@ -40,7 +41,7 @@ module SoftEngine {
             this.workingContext.putImageData(this.backbuffer!, 0, 0);
         }
 
-        putPixel(x: number, y: number, color: Qumeta.Color4) {
+        private putPixel(x: number, y: number, color: Qumeta.Color4) {
             this.backbufferdata = this.backbuffer!.data;
             var index = ((x >> 0) + (y >> 0) * this.workingWidth) * 4;
             this.backbufferdata[index] = color.r * 255;
@@ -49,14 +50,14 @@ module SoftEngine {
             this.backbufferdata[index + 3] = color.a * 255;
         }
 
-        project(coord: Qumeta.Vector3, transMat: Qumeta.Matrix) {
+        private project(coord: Qumeta.Vector3, transMat: Qumeta.Matrix) {
             var point = Qumeta.Vector3.TransformCoordinates(coord, transMat);
             var x = point.x * this.workingWidth + this.workingWidth / 2.0 >> 0;
             var y = -point.y * this.workingHeight + this.workingHeight / 2.0 >> 0;
             return (new Qumeta.Vector2(x, y));
         }
 
-        drawPoint(point: Qumeta.Vector2) {
+        private drawPoint(point: Qumeta.Vector2) {
             if (point.x >= 0 && point.y >= 0 && point.x < this.workingWidth && point.y < this.workingHeight) {
                 this.putPixel(point.x, point.y, new Qumeta.Color4(1, 1, 0, 1));
             }
