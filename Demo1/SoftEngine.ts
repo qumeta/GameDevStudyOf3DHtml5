@@ -59,16 +59,20 @@ module SoftEngine {
 
         private drawPoint(point: Qumeta.Vector2) {
             if (point.x >= 0 && point.y >= 0 && point.x < this.workingWidth && point.y < this.workingHeight) {
-                this.putPixel(point.x, point.y, new Qumeta.Color4(1, 1, 0, 1));
+                this.putPixel(point.x, point.y, new Qumeta.Color4(1, 0, 0, 1));
             }
         }
 
         render(camera: Camera, meshes: Array<Mesh>) {
+            // 视图矩阵
             var viewMatrix = Qumeta.Matrix.LookAtLH(camera.Position, camera.Target, Qumeta.Vector3.Up());
-            var projectionMatrix = Qumeta.Matrix.PerspectiveFovLH(0.78, this.workingWidth / this.workingHeight, 0.01, 1.0);
+            // 投影矩阵
+            var projectionMatrix = Qumeta.Matrix.PerspectiveFovLH(45 * Math.PI / 180, this.workingWidth / this.workingHeight, 0.01, 1.0);
             for (var index = 0; index < meshes.length; index++) {
                 var cMesh = meshes[index];
+                // 世界矩阵
                 var worldMatrix = Qumeta.Matrix.RotationYawPitchRoll(cMesh.Rotation.y, cMesh.Rotation.x, cMesh.Rotation.z).multiply(Qumeta.Matrix.Translation(cMesh.Position.x, cMesh.Position.y, cMesh.Position.z));
+                // 变换矩阵
                 var transformMatrix = worldMatrix.multiply(viewMatrix).multiply(projectionMatrix);
                 for (var indexVertices = 0; indexVertices < cMesh.Vertices.length; indexVertices++) {
                     var projectedPoint = this.project(cMesh.Vertices[indexVertices], transformMatrix);

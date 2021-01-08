@@ -35,11 +35,21 @@ function init() {
     requestAnimationFrame(drawingLoop);
 }
 
-function drawingLoop() {
-    device.clear();
+function update() {
     mesh.Rotation.x += 0.01;
     //mesh.Rotation.y += 0.01;
+}
+function drawingLoop() {
+    // 清屏
+    device.clear();
+
+    // 计算
+    update();
+
+    // 渲染
     device.render(camera, meshes);
+    // 内存到屏幕
     device.present();
+    
     requestAnimationFrame(drawingLoop);
 }

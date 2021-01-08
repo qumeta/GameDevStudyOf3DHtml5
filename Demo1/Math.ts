@@ -63,7 +63,7 @@ module Qumeta {
 
         // 叉乘
         // 叉乘结果是一个向量，也叫法向量，该向量垂直于a和b向量构成的平面。
-        static Cross(left: Vector3, right: Vector3) : Vector3 {
+        static Cross(left: Vector3, right: Vector3): Vector3 {
             var x = left.y * right.z - left.z * right.y;
             var y = left.z * right.x - left.x * right.z;
             var z = left.x * right.y - left.y * right.x;
@@ -76,6 +76,7 @@ module Qumeta {
         constructor(public m: Array<number> = []) {
         }
 
+        // 相乘
         multiply(other: Matrix) {
             var result = new Matrix();
             result.m[0] = this.m[0] * other.m[0] + this.m[1] * other.m[4] + this.m[2] * other.m[8] + this.m[3] * other.m[12];
@@ -121,14 +122,17 @@ module Qumeta {
             return result;
         }
 
+        // 单位矩阵
         static Identity() {
             return Matrix.FromValues(1.0, 0, 0, 0, 0, 1.0, 0, 0, 0, 0, 1.0, 0, 0, 0, 0, 1.0);
         }
 
+        // 零
         static Zero() {
             return Matrix.FromValues(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         }
 
+        // X轴旋转矩阵
         static RotationX(angle: number) {
             var result = Matrix.Zero();
             var s = Math.sin(angle);
@@ -142,6 +146,7 @@ module Qumeta {
             return result;
         }
 
+        // Y轴旋转矩阵
         static RotationY(angle: number) {
             var result = Matrix.Zero();
             var s = Math.sin(angle);
@@ -155,6 +160,7 @@ module Qumeta {
             return result;
         }
 
+        // Z轴旋转矩阵
         static RotationZ(angle: number) {
             var result = Matrix.Zero();
             var s = Math.sin(angle);
@@ -168,10 +174,15 @@ module Qumeta {
             return result;
         }
 
+        // Euler角(命名源自航空界)
+        // yaw是围绕Y轴旋转，也叫偏航角。
+        // pitch是围绕X轴旋转，也叫做俯仰角。
+        // roll是围绕Z轴旋转，也叫翻滚角。
         static RotationYawPitchRoll(yaw: number, pitch: number, roll: number) {
             return Matrix.RotationZ(roll).multiply(Matrix.RotationX(pitch)).multiply(Matrix.RotationY(yaw));
         }
 
+        // 位移
         static Translation(x: number, y: number, z: number) {
             var result = Matrix.Identity();
             result.m[12] = x;
@@ -180,7 +191,8 @@ module Qumeta {
             return result;
         }
 
-        static LookAtLH(eye: Vector3, target: Vector3, up: Vector3) {
+        // 看向
+        static LookAtLH(eye: Vector3, target: Vector3, up: Vector3): Matrix {
             var zAxis = target.subtract(eye);
             zAxis.normalize();
             var xAxis = Vector3.Cross(up, zAxis);
@@ -193,7 +205,8 @@ module Qumeta {
             return Matrix.FromValues(xAxis.x, yAxis.x, zAxis.x, 0, xAxis.y, yAxis.y, zAxis.y, 0, xAxis.z, yAxis.z, zAxis.z, 0, ex, ey, ez, 1);
         }
 
-        static PerspectiveFovLH(fov: number, aspect: number, znear: number, zfar: number) {
+        // 透视
+        static PerspectiveFovLH(fov: number, aspect: number, znear: number, zfar: number): Matrix {
             var matrix = Matrix.Zero();
             var tan = 1.0 / (Math.tan(fov * 0.5));
             matrix.m[0] = tan / aspect;
