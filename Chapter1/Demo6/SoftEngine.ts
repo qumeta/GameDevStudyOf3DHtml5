@@ -61,7 +61,7 @@ module SoftEngine {
             if (this.depthbuffer[index] < z) {
                 return;
             }
-            this.depthbuffer[index4] = z;
+            this.depthbuffer[index] = z;
             this.backbufferdata[index4] = color.r * 255;
             this.backbufferdata[index4 + 1] = color.g * 255;
             this.backbufferdata[index4 + 2] = color.b * 255;
