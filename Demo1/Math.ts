@@ -25,6 +25,7 @@ module Qumeta {
             return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
         }
 
+        // 归一化
         normalize() {
             var len = this.length();
             if (len === 0) {
@@ -44,6 +45,7 @@ module Qumeta {
             return new Vector3(0, 1.0, 0);
         }
 
+        // 坐标变换
         static TransformCoordinates(vector: Vector3, transformation: Matrix) {
             var x = (vector.x * transformation.m[0]) + (vector.y * transformation.m[4]) + (vector.z * transformation.m[8]) + transformation.m[12];
             var y = (vector.x * transformation.m[1]) + (vector.y * transformation.m[5]) + (vector.z * transformation.m[9]) + transformation.m[13];
@@ -52,11 +54,16 @@ module Qumeta {
             return new Vector3(x / w, y / w, z / w);
         }
 
-        static Dot(left: Vector3, right: Vector3) {
+        // 点乘
+        // 点乘的结果是一个标量，用来表征或计算两个向量之间的夹角，以及在b向量在a向量方向上的投影
+        // angle = arcos(normalize's dot)
+        static Dot(left: Vector3, right: Vector3): number {
             return (left.x * right.x + left.y * right.y + left.z * right.z);
         }
 
-        static Cross(left: Vector3, right: Vector3) {
+        // 叉乘
+        // 叉乘结果是一个向量，也叫法向量，该向量垂直于a和b向量构成的平面。
+        static Cross(left: Vector3, right: Vector3) : Vector3 {
             var x = left.y * right.z - left.z * right.y;
             var y = left.z * right.x - left.x * right.z;
             var z = left.x * right.y - left.y * right.x;
