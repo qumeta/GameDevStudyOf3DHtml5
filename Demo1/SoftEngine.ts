@@ -43,7 +43,7 @@ module SoftEngine {
 
         private putPixel(x: number, y: number, color: Qumeta.Color4) {
             this.backbufferdata = this.backbuffer!.data;
-            var index = ((x >> 0) + (y >> 0) * this.workingWidth) * 4;
+            var index = ((x >> 0) + (y >> 0) * this.workingWidth) * 4; // pixel 
             this.backbufferdata[index] = color.r * 255;
             this.backbufferdata[index + 1] = color.g * 255;
             this.backbufferdata[index + 2] = color.b * 255;
