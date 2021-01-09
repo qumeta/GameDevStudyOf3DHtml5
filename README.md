@@ -11,6 +11,8 @@ Chapter1 -- Simple SoftEngine for 2d canvas
 -- Demo4 (Rasterization without Z-Buffer)
 -- Demo5 (Rasterization with Z-Buffer)
 -- Demo6 (Flat Shading)
+-- Demo7 (Gouraud Shading)
+-- Demo8 (Texture Mapping)
 
 Flat Shading
 Gouraud Shading
