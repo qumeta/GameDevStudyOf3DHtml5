@@ -4,7 +4,7 @@
 2) Html
 3) Engine
 
-Chapter1 -- Simple SoftEngine for 2d canvas
+StudyDemos -- Simple SoftEngine for 2d canvas
 -- Demo1 (vertices cube)
 -- Demo2 (drawing triangles)
 -- Demo3 (loading meshes from Blender)
