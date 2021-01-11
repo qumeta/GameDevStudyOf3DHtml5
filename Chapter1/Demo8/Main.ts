@@ -15,7 +15,7 @@ var camera: SoftEngine.Camera;
 
 
 //document.addEventListener("DOMContentLoaded", init, false);
-function init() {
+function init(demo: string | null = null) {
     canvas = document.getElementById("frontBuffer") as HTMLCanvasElement;
     mesh = new SoftEngine.Mesh("Cube", 4, 2);
     meshes.push(mesh);
@@ -26,7 +26,7 @@ function init() {
     camera.Position = new Qumeta.Vector3(0, 0, 10);
     camera.Target = new Qumeta.Vector3(0, 0, 0);
 
-    device.LoadJSONFileAsync("monkey.babylon", loadJSONCompleted);
+    device.LoadJSONFileAsync(`${demo ? demo + '/' : ''}monkey.babylon`, loadJSONCompleted);
 }
 
 function loadJSONCompleted(meshesLoaded:Array<SoftEngine.Mesh>) {
