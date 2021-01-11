@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>3D Soft Engine using HTML5 Canvas</title>
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        #last {
+            position: fixed;
+            bottom: 20px;
+            right: 100px;
+            width: 60px;
+        }
+
+        #next {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="frontBuffer" width="640" height="480" style="background-color: black;"></canvas>
+    <button id="last" onclick="clickNext(-1)">last</button>
+    <button id="next" onclick="clickNext(1)">next</button>
+
+    <script>
+
+        if (!window.location.hash)
+            window.location.hash = "demo1";
+
+        var demo = window.location.hash.substring(1);
+        var list = ["Math.js", "SoftEngine.js", "Main.js"].map(item => {
+            return "./" + demo + "/dist/" + item;
+        });
+
+        var loadScript = function (list, callback) {
+            var loaded = 0;
+            var loadNext = function () {
+                loadSingleScript(list[loaded], function () {
+                    loaded++;
+                    if (loaded >= list.length) {
+                        callback();
+                    }
+                    else {
+                        loadNext();
+                    }
+                })
+            };
+            loadNext();
+        };
+
+        var loadSingleScript = function (src, callback) {
+            var s = document.createElement('script');
+            s.async = false;
+            s.src = src;
+            s.addEventListener('load', function () {
+                s.parentNode.removeChild(s);
+                s.removeEventListener('load', arguments.callee, false);
+                callback();
+            }, false);
+            document.body.appendChild(s);
+        };
+
+        // 全部加载完开始
+        loadScript(list, () => {
+            init(); // Main.init
+        })
+
+        function clickNext(v) {
+            window.location.hash = "demo" + (+window.location.hash.substring(5) + v);
+            window.location.reload();
+        }
+
+        function initBtn(){
+            document.querySelector("#last").disabled = (window.location.hash == "#demo1") ? true : false;
+            document.querySelector("#next").disabled = (window.location.hash == "#demo8") ? true : false;
+        }
+        initBtn();
+    </script>
+</body>
+
+</html>

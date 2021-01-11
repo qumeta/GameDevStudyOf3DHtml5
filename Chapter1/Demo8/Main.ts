@@ -13,7 +13,8 @@ var mesh: SoftEngine.Mesh;
 var meshes: SoftEngine.Mesh[] = [];
 var camera: SoftEngine.Camera;
 
-document.addEventListener("DOMContentLoaded", init, false);
+
+//document.addEventListener("DOMContentLoaded", init, false);
 function init() {
     canvas = document.getElementById("frontBuffer") as HTMLCanvasElement;
     mesh = new SoftEngine.Mesh("Cube", 4, 2);
