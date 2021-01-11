@@ -36,8 +36,8 @@ function init() {
 }
 
 function update() {
-    mesh.Rotation.x += 0.01;
-    //mesh.Rotation.y += 0.01;
+    //mesh.Rotation.x += 0.01;
+    mesh.Rotation.y += 0.01;
 }
 function drawingLoop() {
     // 清屏
