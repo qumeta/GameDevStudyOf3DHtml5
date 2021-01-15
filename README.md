@@ -18,5 +18,5 @@ Flat Shading
 Gouraud Shading
 Texture Mapping
 
-Demo2 -- Simple Babylonjs demo
+DemoBabylon -- Simple Babylonjs demo
 WebglDemo -- Simple webgl demo
