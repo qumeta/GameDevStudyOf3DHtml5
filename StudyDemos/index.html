@@ -35,9 +35,9 @@
 </head>
 
 <body>
-    <canvas id="frontBuffer" width="160" height="120" style="background-color: black;"></canvas>
-    <!-- <canvas id="frontBuffer" width="640" height="48" style="background-color: black;"></canvas> -->
-    <!-- <canvas id="frontBuffer" width="1280" height="960" style="background-color: black;"></canvas> -->
+    <!-- <canvas id="frontBuffer" width="160" height="120" style="background-color: black;"></canvas> -->
+    <!-- <canvas id="frontBuffer" width="640" height="480" style="background-color: black;"></canvas> -->
+    <canvas id="frontBuffer" width="1280" height="960" style="background-color: black;"></canvas>
     <button id="last" onclick="clickNext(-1)">last</button>
     <button id="next" onclick="clickNext(1)">next</button>
 
@@ -81,6 +81,11 @@
 
         // 全部加载完开始
         loadScript(list, () => {
+            // demo1时视图小点可以看清楚
+            var flag = (window.location.hash == "#demo1");
+            document.querySelector("#frontBuffer").width = flag ? "160" : "1280";
+            document.querySelector("#frontBuffer").height = flag ? "120" : "960";
+            
             init(window.location.hash.substring(1)); // Main.init
         })
 
